@@ -92,7 +92,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/typicode/json-server.git"
+    "url": "git://github.com/NavaraBV/json-server.git"
   },
   "keywords": [
     "JSON",
