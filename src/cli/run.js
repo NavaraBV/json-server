@@ -9,6 +9,11 @@ const is = require('./utils/is')
 const load = require('./utils/load')
 const jsonServer = require('../server')
 
+process.on('SIGTERM', function() {
+  console.log('Graceful shutdown');
+  process.exit(0);
+});
+
 function prettyPrint(argv, object, rules) {
   const root = `http://${argv.host}:${argv.port}`
 
