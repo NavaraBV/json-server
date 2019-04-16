@@ -16,6 +16,7 @@ if (process.platform === "win32") {
   });
 
   rl.on("SIGTERM", function () {
+    console.log("sigterm in readline");
     process.emit("SIGTERM");
   });
 }
