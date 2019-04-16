@@ -9,6 +9,17 @@ const is = require('./utils/is')
 const load = require('./utils/load')
 const jsonServer = require('../server')
 
+if (process.platform === "win32") {
+  var rl = require("readline").createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  rl.on("SIGTERM", function () {
+    process.emit("SIGTERM");
+  });
+}
+
 process.on('SIGTERM', function() {
   console.log('Graceful shutdown');
   process.exit(0);
