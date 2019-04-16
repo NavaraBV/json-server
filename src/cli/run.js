@@ -9,42 +9,30 @@ const is = require('./utils/is')
 const load = require('./utils/load')
 const jsonServer = require('../server')
 
-if (process.platform === "win32") {
-  var rl = require("readline").createInterface({
+const windowsSignals = ['WM_CLOSE', 'WM_DESTROY', 'WM_QUIT', 'CTRL_BREAK_EVENT']
+const unixSignals = ['SIGKILL', 'SIGINT', 'SIGTERM']
+const allSignals = [...windowsSignals, unixSignals]
+
+if (process.platform === 'win32') {
+  var rl = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
-  });
-  
-  rl.on("SIGKILL", function () {
-    console.log("SIGKILL in readline");
-    process.emit("SIGINT");
-  });
-  
-  rl.on("SIGINT", function () {
-    console.log("SIGINT in readline");
-    process.emit("SIGINT");
-  });
+  })
 
-  rl.on("SIGTERM", function () {
-    console.log("SIGTERM in readline");
-    process.emit("SIGTERM");
-  });
+  allSignals.forEach(signal => {
+    rl.on(signal, function() {
+      console.log(`${signal} in readline`)
+      process.emit(signal)
+    })
+  })
 }
 
-process.on('SIGKILL', function() {
-  console.log('process.on sigkill');
-  process.exit(0);
-});
-
-process.on('SIGINT', function() {
-  console.log('process.on sigint');
-  process.exit(0);
-});
-
-process.on('SIGTERM', function() {
-  console.log('Graceful shutdown');
-  process.exit(0);
-});
+unixSignals.forEach(signal => {
+  process.on(signal, function() {
+    console.log(`process.on ${signal}`)
+    process.exit(0)
+  })
+})
 
 function prettyPrint(argv, object, rules) {
   const root = `http://${argv.host}:${argv.port}`
