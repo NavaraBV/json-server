@@ -14,12 +14,32 @@ if (process.platform === "win32") {
     input: process.stdin,
     output: process.stdout
   });
+  
+  rl.on("SIGKILL", function () {
+    console.log("SIGKILL in readline");
+    process.emit("SIGINT");
+  });
+  
+  rl.on("SIGINT", function () {
+    console.log("SIGINT in readline");
+    process.emit("SIGINT");
+  });
 
   rl.on("SIGTERM", function () {
-    console.log("sigterm in readline");
+    console.log("SIGTERM in readline");
     process.emit("SIGTERM");
   });
 }
+
+process.on('SIGKILL', function() {
+  console.log('process.on sigkill');
+  process.exit(0);
+});
+
+process.on('SIGINT', function() {
+  console.log('process.on sigint');
+  process.exit(0);
+});
 
 process.on('SIGTERM', function() {
   console.log('Graceful shutdown');
