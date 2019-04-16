@@ -268,7 +268,7 @@ module.exports = function(argv) {
       }
     })
     .catch(err => {
-      console.log(err)
+      console.log('Error', err)
       process.exit(1)
     })
 }
