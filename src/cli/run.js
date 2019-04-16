@@ -98,7 +98,7 @@ module.exports = function(argv) {
   }
 
   console.log()
-  console.log(chalk.cyan('  \\{^_^}/ hi!'))
+  console.log(chalk.cyan('  \\{^_^}/ Starting modified JSON-Server!'))
 
   function start(cb) {
     console.log()
