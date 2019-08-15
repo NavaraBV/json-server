@@ -1,5 +1,11 @@
 module.exports = {
-  getPage
+  getPage,
+  maybeParseInt
+}
+
+function maybeParseInt(maybeInt) {
+  const parsedInt = /^\d+$/.test(maybeInt) ? +maybeInt : NaN
+  return isNaN(parsedInt) ? maybeInt : parsedInt
 }
 
 function getPage(array, page, perPage) {

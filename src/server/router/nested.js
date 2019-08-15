@@ -1,3 +1,4 @@
+import { maybeParseInt } from '../utils'
 const _ = require('lodash')
 const express = require('express')
 const pluralize = require('pluralize')
@@ -17,7 +18,7 @@ module.exports = opts => {
 
   // Rewrite URL (/:resource/:id/:nested -> /:nested) and request body
   function post(req, res, next) {
-    const id = parseInt(req.params.id)
+    const id = maybeParseInt(req.params.id)
     const prop = pluralize.singular(req.params.resource) + opts.foreignKeySuffix
     if (_.isArray(req.body)) {
       req.body = req.body.map(r => ({

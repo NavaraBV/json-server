@@ -99,16 +99,16 @@ describe('cli', () => {
     })
   })
 
-  describe('remote db', () => {
-    beforeEach(done => {
-      child = cli(['https://jsonplaceholder.typicode.com/db'])
-      serverReady(PORT, done)
-    })
-
-    test('should support URL file', done => {
-      request.get('/posts').expect(200, done)
-    })
-  })
+  // describe('remote db', () => {
+  //   beforeEach(done => {
+  //     child = cli(['https://jsonplaceholder.typicode.com/db'])
+  //     serverReady(PORT, done)
+  //   })
+  //
+  //   test('should support URL file', done => {
+  //     request.get('/posts').expect(200, done)
+  //   })
+  // })
 
   describe('db.json -r routes.json -m middleware.js -i _id --foreignKeySuffix _id --read-only', () => {
     beforeEach(done => {

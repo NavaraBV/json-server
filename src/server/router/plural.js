@@ -1,3 +1,5 @@
+import { maybeParseInt } from '../utils'
+
 const express = require('express')
 const _ = require('lodash')
 const pluralize = require('pluralize')
@@ -301,7 +303,7 @@ module.exports = (db, name, opts) => {
   // PUT /name/:id
   // PATCH /name/:id
   function update(req, res, next) {
-    const id = parseInt(req.params.id)
+    const id = maybeParseInt(req.params.id)
     let resource
 
     if (opts._isFake) {
